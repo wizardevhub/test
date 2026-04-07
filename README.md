@@ -9,14 +9,30 @@ This README is structured to directly answer the two requested tasks.
 ### 1.1 Selected AI Features
 
 #### Feature A: Counselor Copilot (Internal)
-- Counselors ask questions during live chats.
-- System returns concise guidance, step-by-step support, and source citations.
-- Low-confidence or high-risk requests trigger escalation guidance.
+- **Primary user and context:** Counselors use it during active chat sessions when they need fast, policy-aligned guidance without leaving their workflow.
+- **Input signals:** free-text counselor question, optional chat summary, language, and risk/context tags from the current case.
+- **Output format (structured):**
+  - concise suggested response (what to say now)
+  - step-by-step support plan (what to do next)
+  - source citations linked to approved KC materials
+  - confidence level (`high`, `medium`, `low`) with rationale
+- **Safety behavior:** low-confidence or high-risk prompts trigger escalation guidance (supervisor handoff, crisis protocol, or "insufficient evidence" fallback).
+- **Workflow fit:** one-click actions for "copy answer", "open cited source", and "mark output quality" to keep counselor friction low.
+- **v1 scope boundary:** decision support only; never autonomous counseling or final decision-maker.
+- **Expected impact:** reduced lookup time, improved consistency across counselors, and better traceability through citations.
 
 #### Feature B: Chatter Exercise Recommender (Counselor-in-the-loop)
-- System suggests top 3 resources/exercises from approved materials.
-- Recommendations are filtered by language, age range, and risk context.
-- Counselor reviews and approves before sending to chatter.
+- **Primary user and context:** Counselors use this near the end of a conversation to send practical follow-up exercises/resources.
+- **Input signals:** session summary, detected themes (e.g., anxiety, sleep, panic), language, age range, and risk level.
+- **Recommendation logic:** system proposes top 3 items from approved content using relevance + safety + readability ranking.
+- **Output format (structured):**
+  - ranked resource list with short rationale ("why this is suggested")
+  - estimated completion time and format (text, worksheet, video)
+  - contraindication flags for sensitive contexts
+- **Guardrails:** recommendations are filtered by language, age suitability, and risk context; disallowed content is automatically excluded.
+- **Human control:** counselor must review, edit, and approve before sending; no direct model-to-chatter delivery in v1.
+- **v1 scope boundary:** limited to curated/approved materials and top priority counseling themes; broad personalization deferred.
+- **Expected impact:** higher resource relevance, better follow-through, and less manual searching by counselors.
 
 ### 1.2 First Architecture (v1)
 
