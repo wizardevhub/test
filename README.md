@@ -23,6 +23,7 @@ This README is structured to directly answer the two requested tasks.
 #### v1 Architecture Diagram
 
 ```mermaid
+%%{init: {"theme":"default","flowchart":{"nodeSpacing":55,"rankSpacing":75,"curve":"basis"},"themeVariables":{"fontSize":"20px"}}}%%
 flowchart LR
     A[Content Sources<br/>PDFs, Google Docs, Video Transcripts] --> B[Ingestion Pipeline]
     B --> C[Normalize + Chunk + Metadata]
@@ -42,6 +43,9 @@ flowchart LR
     M --> N[Feedback Capture<br/>Helpful / Not helpful / Unsafe]
     N --> O[Observability + Eval Store]
     O --> P[Offline Eval + Iteration Loop]
+
+    classDef big font-size:20px,padding:14px,stroke-width:2px;
+    class A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P big;
 ```
 
 
